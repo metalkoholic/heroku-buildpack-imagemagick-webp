@@ -31,25 +31,6 @@ if [ ! -f $CACHE_FILE ]; then
   cd ..
   rm -rf $LIBWEBP_DIR
 
-  # install imagemagick
-
-  IMAGE_MAGICK_VERSION="7.0.8-17"
-  IMAGE_MAGICK_FILE="ImageMagick-$IMAGE_MAGICK_VERSION.tar.gz"
-  IMAGE_MAGICK_DIR="ImageMagick-$IMAGE_MAGICK_VERSION"
-  IMAGE_MAGICK_URL="https://imagemagick.org/download/$IMAGE_MAGICK_FILE"
-
-  echo "-----> Downloading ImageMagick from $IMAGE_MAGICK_URL"
-  curl -L --silent $IMAGE_MAGICK_URL | tar xz
-
-  echo "-----> Building ImageMagick"
-  cd $IMAGE_MAGICK_DIR
-  export CPPFLAGS="-I$INSTALL_DIR/include"
-  export LDFLAGS="-L$INSTALL_DIR/lib"
-  ./configure --prefix=$INSTALL_DIR --with-webp --with-quantum-depth=8 --disable-static
-  make && make install
-  cd ..
-  rm -rf $IMAGE_MAGICK_DIR
-
   # cache for future deploys
 
   echo "-----> Caching ImageMagick and libwebp installation"
